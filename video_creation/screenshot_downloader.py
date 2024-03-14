@@ -220,7 +220,7 @@ def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
                 if page.locator('[data-testid="content-gate"]').is_visible():
                     page.locator('[data-testid="content-gate"] button').click()
 
-                page.goto(f'https://reddit.com{comment["comment_url"]}', timeout=0)
+                page.goto(f"https://new.reddit.com/{comment['comment_url']}")
 
                 # translate code
 
