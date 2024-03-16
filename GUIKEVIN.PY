@@ -8,6 +8,24 @@ os.system("cls||clear")
 windows = []
 windows.append(tk.Tk())
 
+class redditInfo():
+    def __init__(self):
+        with open("GUIinfo.txt", "r") as infoFile:
+            self.info = {}
+            iteration = 1
+            for line in infoFile.readlines():
+                self.info.update({iteration: line})
+                iteration += 1
+    def updateInfo(self):
+        with open("GUIinfo.txt", "r") as infoFile:
+            self.info = {}
+            iteration = 1
+            for line in infoFile.readlines():
+                self.info.update({iteration: line})
+                iteration += 1
+    def getInfoLine(self, linenum):
+        return self.info[linenum]
+
 class windows():
     def __init__(self, mainwin, shortcut):
         self.wins = []
@@ -71,7 +89,9 @@ class windows():
             window.mainloop()
 
 
+guiInfo = redditInfo()
 guiWindows = windows(tk.Tk(), "main")
+
 guiWindows.widget_setup("main", "m1")
 guiWindows.widget_create("label1", tk.Label(   guiWindows.widget_get("label1"),   text="hi"), "m1")
 #guiWindows.debug("main")
@@ -80,8 +100,10 @@ guiWindows.create(tk.Tk(), "screenShotWindow")
 guiWindows.widget_setup("screenShotWindow", "screenShotWidgets")
 guiWindows.widget_create("header", tk.Label(guiWindows.widget_get("header"), text="Downloading Screenshots..."), "screenShotWidgets")
 
+#PACKING WIDGETS
 guiWindows.widgets_pack("screenShotWidgets")
 
+#RUNNING WINDOWS
 guiWindows.mainloop()
 
 print(Back.RESET)

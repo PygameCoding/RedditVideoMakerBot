@@ -43,7 +43,8 @@ def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
 
     print_step("Downloading screenshots of reddit posts...")
     reddit_id = re.sub(r"[^\w\s-]", "", reddit_object["thread_id"])
-    write_line("GUIinfo.txt", 5, reddit_id)
+    write_line("GUIinfo.txt", 1, "assets/temp/" + reddit_id + "/png/")
+    write_line("GUIinfo.txt", 2, reddit_id)
     # ! Make sure the reddit screenshots folder exists
     Path(f"assets/temp/{reddit_id}/png").mkdir(parents=True, exist_ok=True)
 
