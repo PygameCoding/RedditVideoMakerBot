@@ -17,6 +17,16 @@ from utils.videos import save_data
 
 __all__ = ["download_screenshots_of_reddit_posts"]
 
+def write_line(file_path: str, line_number: int, text: str, chunk_size: int = 1024):
+    with open(file_path, 'r') as file:
+        lines = [
+            text if (i + 1 == line_number) else line.rstrip('\n')
+            for chunk in iter(lambda: file.read(chunk_size), '')
+            for i, line in enumerate(chunk.split('\n'))
+        ]
+
+    with open(file_path, 'w') as file:
+        file.write('\n'.join(lines))
 
 def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
     """Downloads screenshots of reddit posts as seen on the web. Downloads to assets/temp/png
@@ -33,6 +43,7 @@ def get_screenshots_of_reddit_posts(reddit_object: dict, screenshot_num: int):
 
     print_step("Downloading screenshots of reddit posts...")
     reddit_id = re.sub(r"[^\w\s-]", "", reddit_object["thread_id"])
+    write_line("GUIinfo.txt", 5, reddit_id)
     # ! Make sure the reddit screenshots folder exists
     Path(f"assets/temp/{reddit_id}/png").mkdir(parents=True, exist_ok=True)
 
